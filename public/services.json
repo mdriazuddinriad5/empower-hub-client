@@ -1,0 +1,68 @@
+[
+    {
+        "title": "Comprehensive Employee Management",
+        "description": "Simplify and streamline the entire employee management process from onboarding to offboarding. Manage employee data, documents, and performance effortlessly.",
+        "image": "https://i.ibb.co/K7RTQM6/em1.png",
+        "features": [
+            "Onboarding Automation",
+            "Document Management",
+            "Performance Tracking"
+        ],
+        "support_contact": "employee_management_support@ehub.com"
+    },
+    {
+        "title": "Role-Specific Dashboards",
+        "description": "Customized dashboards for Admin, HR, and Employee roles, providing access to unique features and tools tailored to each role's responsibilities.",
+        "image": "https://i.ibb.co/LhQpSWm/em2.png",
+        "features": [
+            "Role-Based Access",
+            "Advanced Reporting",
+            "Task Management"
+        ],
+        "support_contact": "dashboard_support@ehub.com"
+    },
+    {
+        "title": "Payroll and Compensation Management",
+        "description": "Automate payment calculations based on employee activities. Efficiently handle payroll, bonuses, incentives, and commission tracking.",
+        "image": "https://i.ibb.co/3NhxL6c/em3.jpg",
+        "features": [
+            "Automated Payroll",
+            "Bonus and Incentive Tracking",
+            "Compliance Management"
+        ],
+        "support_contact": "payroll_support@ehub.com"
+    },
+    {
+        "title": "Time and Attendance Tracking",
+        "description": "Efficiently track employee time and attendance, ensuring accurate payroll processing and compliance with attendance policies.",
+        "image": "https://i.ibb.co/xSz7sKY/em3.png",
+        "features": [
+            "Real-Time Tracking",
+            "Attendance Policy Enforcement",
+            "Overtime Management"
+        ],
+        "support_contact": "attendance_support@ehub.com"
+    },
+    {
+        "title": "Leave and Absence Management",
+        "description": "Simplify leave requests, approvals, and tracking. Ensure seamless management of employee absences with our user-friendly tools.",
+        "image": "https://i.ibb.co/3YzgLxL/em5.jpg",
+        "features": [
+            "Leave Request Workflow",
+            "Approval Management",
+            "Absence Reporting"
+        ],
+        "support_contact": "leave_management_support@ehub.com"
+    },
+    {
+        "title": "Performance Evaluation and Reviews",
+        "description": "Conduct performance evaluations, set goals, and provide regular feedback to enhance employee performance and development.",
+        "image": "https://i.ibb.co/3yzgXFg/em6.jpg",
+        "features": [
+            "Performance Reviews",
+            "Goal Setting",
+            "Feedback Mechanism"
+        ],
+        "support_contact": "performance_support@ehub.com"
+    }
+]

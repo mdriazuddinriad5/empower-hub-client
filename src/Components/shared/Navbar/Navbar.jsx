@@ -14,7 +14,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import { Container } from '@mui/material';
+import { Container, useTheme } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 
 const drawerWidth = 240;
@@ -27,6 +27,7 @@ const links = [
 
 function Navbar(props) {
     const { window } = props;
+    const theme = useTheme();
     const [mobileOpen, setMobileOpen] = React.useState(false);
 
 
@@ -46,7 +47,7 @@ function Navbar(props) {
                         <ListItemButton sx={{ textAlign: 'center' }}>
                             <NavLink to={link.link} className={({ isActive, isPending }) =>
                                 isPending ? "pending" : isActive ? "text-[#008080] underline" : ""
-                            }><ListItemText primary={link.name} /></NavLink>
+                            }><ListItemText sx={{ color: theme.palette.mode === 'dark' ? '#fff' : '#272727', fontWeight: 600 }} primary={link.name} /></NavLink>
 
                         </ListItemButton>
                     </ListItem>
@@ -60,7 +61,9 @@ function Navbar(props) {
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
-            <AppBar sx={{ background: 'white', py: 1 }} component="nav">
+            <AppBar sx={{
+                background: theme.palette.mode === 'dark' ? '#333' : 'white', py: 1,
+            }} component="nav">
                 <Container maxWidth="lg">
                     <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
                         <IconButton
@@ -88,7 +91,7 @@ function Navbar(props) {
                                     <NavLink key={idx} to={link.link} className={({ isActive, isPending }) =>
                                         isPending ? "pending" : isActive ? "text-[#803700] underline" : ""
                                     }>
-                                        <Button sx={{ color: '#272727', fontWeight: 600 }}>
+                                        <Button sx={{ color: theme.palette.mode === 'dark' ? '#fff' : '#272727', fontWeight: 600 }}>
                                             {link.name}
                                         </Button>
                                     </NavLink>
@@ -130,7 +133,7 @@ function Navbar(props) {
                     open={mobileOpen}
                     onClose={handleDrawerToggle}
                     ModalProps={{
-                        keepMounted: true, // Better open performance on mobile.
+                        keepMounted: true,
                     }}
                     sx={{
                         display: { xs: 'block', sm: 'none' },

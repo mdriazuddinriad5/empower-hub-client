@@ -1,12 +1,12 @@
 import Banner from "../../Components/Banner/Banner";
-import SectionTitle from "../../Components/shared/SectionTitle/SectionTitle";
+import Services from "../../Components/Services/Services";
 
 
 const Home = () => {
     return (
         <div>
             <Banner></Banner>
-            <SectionTitle heading={'Our Service'} subHeading={'Great Service'}></SectionTitle>
+            <Services></Services>
         </div>
     );
 };
