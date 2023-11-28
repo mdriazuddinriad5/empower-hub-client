@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../Components/shared/Navbar/Navbar";
+import Footer from "../Components/shared/Footer/Footer";
 import { Box, Button, Grid, createTheme, ThemeProvider } from "@mui/material";
 import { useState } from "react";
 import DarkModeIcon from '@mui/icons-material/DarkMode';
@@ -31,7 +32,7 @@ const MainLayout = () => {
                     sx={{
                         position: 'absolute',
                         top: 20,
-                        left: '50%',
+                        left: '35%',
                         transform: 'translateX(-50%)',
                         lg: { transform: 'none', top: 2, left: 2 },
                         zIndex: theme.zIndex.drawer + 1,
@@ -44,6 +45,7 @@ const MainLayout = () => {
                 <Grid sx={{ mt: 9 }}>
                     <Outlet />
                 </Grid>
+                <Footer></Footer>
             </Box>
         </ThemeProvider>
     );

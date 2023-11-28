@@ -17,7 +17,7 @@ const Services = () => {
     })
 
     return (
-        <Grid my={2}>
+        <Grid my={2} maxWidth={'lg'} sx={{ mx: { lg: 'auto' } }}>
             <SectionTitle heading={'Services'} subHeading={'Empowering Your Workplace'}></SectionTitle>
             <Grid container justifyContent={'center'} spacing={3}>
                 {

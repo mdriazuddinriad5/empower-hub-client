@@ -14,8 +14,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import { Container, useTheme } from '@mui/material';
-import { NavLink } from 'react-router-dom';
+import { Avatar, Container, useTheme } from '@mui/material';
+import { Link as RouterLink, NavLink, Link } from 'react-router-dom';
+import useAuth from '../../../Hooks/useAuth';
 
 const drawerWidth = 240;
 const links = [
@@ -26,6 +27,12 @@ const links = [
 
 
 function Navbar(props) {
+    const { logOut, user } = useAuth();
+    console.log(user);
+    const handleLogOut = () => {
+        logOut().then().catch()
+    }
+
     const { window } = props;
     const theme = useTheme();
     const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -106,20 +113,46 @@ function Navbar(props) {
                             >
                             </IconButton>
                         </Box>
-                        <Box>
-                            <Button
-                                variant="contained"
-                                style={{
-                                    backgroundColor: '#ff385c',
-                                    color: 'white',
-                                    fontWeight: 'medium',
-                                    padding: '10px 15px',
-                                    borderRadius: '8px',
-                                    transition: 'background-color 0.3s ease-in-out',
-                                }}
-                            >
-                                Login
-                            </Button>
+                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                            {user ? (
+                                <>
+                                    <Typography variant="body1" color="textPrimary" fontWeight="bold" sx={{mr:2}}>
+                                        {user.displayName}
+                                    </Typography>
+                                    <Avatar alt="User Avatar" src={user.photoURL} sx={{ width: 32, height: 32, marginRight: 2 }} />
+
+                                    <Button
+                                        onClick={handleLogOut}
+                                        variant="contained"
+                                        sx={{
+                                            backgroundColor: '#ff385c',
+                                            color: 'white',
+                                            fontWeight: 'medium',
+                                            padding: '10px 15px',
+                                            borderRadius: '8px',
+                                            transition: 'background-color 0.3s ease-in-out',
+                                        }}
+                                    >
+                                        Sign Out
+                                    </Button>
+                                </>
+                            ) : (
+                                <Link component={RouterLink} to="/login">
+                                    <Button
+                                        variant="contained"
+                                        sx={{
+                                            backgroundColor: '#ff385c',
+                                            color: 'white',
+                                            fontWeight: 'medium',
+                                            padding: '10px 15px',
+                                            borderRadius: '8px',
+                                            transition: 'background-color 0.3s ease-in-out',
+                                        }}
+                                    >
+                                        Login
+                                    </Button>
+                                </Link>
+                            )}
                         </Box>
                     </Toolbar>
                 </Container>
