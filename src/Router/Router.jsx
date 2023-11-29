@@ -10,6 +10,9 @@ import EmployeeList from "../pages/Dashboard/EmployeeList/EmployeeList";
 import HrHome from "../pages/Dashboard/HrHome/HrHome";
 import UserDetail from "../pages/Dashboard/EmployeeList/UserDetail";
 import WorkSheet from "../pages/Dashboard/EmployeeHome/WorkSheet";
+import PaymentHistory from "../pages/Dashboard/EmployeeHome/PaymentHistory";
+import EmployeeHome from "../pages/Dashboard/EmployeeHome/EmployeeHome";
+import Payment from "../pages/Dashboard/Payment/Payment";
 
 
 
@@ -42,6 +45,10 @@ const Router = createBrowserRouter([
         children: ([
             {
                 path: '',
+                element: <EmployeeHome></EmployeeHome>
+            },
+            {
+                path: '',
                 element: <HrHome></HrHome>
             },
             {
@@ -55,6 +62,14 @@ const Router = createBrowserRouter([
             {
                 path: 'workSheet',
                 element: <WorkSheet></WorkSheet>
+            },
+            {
+                path: 'payment-history',
+                element: <PaymentHistory></PaymentHistory>
+            },
+            {
+                path: 'payment',
+                element: <Payment></Payment>
             }
         ])
     }

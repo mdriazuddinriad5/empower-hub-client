@@ -16,7 +16,19 @@ const UserDetail = () => {
         }
     })
 
-    console.log(details);
+    const { name, designation, image } = details;
+
+    const { data: payments = [] } = useQuery({
+        queryKey: ['payment'],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/payments?employeeId=${id}`);
+            return res.data;
+        }
+    })
+
+    console.log(payments);
+
+
     return (
         <div>
             User

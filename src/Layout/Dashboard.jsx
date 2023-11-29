@@ -83,6 +83,12 @@ const DashBoard = () => {
                             </ListItemIcon>
                             <ListItemText primary="Work Sheet" />
                         </ListItem>
+                        <ListItem component={NavLink} to="/dashboard/payment-history" onClick={handleDrawerToggle}>
+                            <ListItemIcon>
+                                <FaHome />
+                            </ListItemIcon>
+                            <ListItemText primary="Payment History" />
+                        </ListItem>
                     </>
                 )}
 
