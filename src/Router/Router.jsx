@@ -6,6 +6,11 @@ import DashBoard from "../Layout/Dashboard";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import PrivateRoute from "./PrivateRoute";
+import EmployeeList from "../pages/Dashboard/EmployeeList/EmployeeList";
+import HrHome from "../pages/Dashboard/HrHome/HrHome";
+import UserDetail from "../pages/Dashboard/EmployeeList/UserDetail";
+import WorkSheet from "../pages/Dashboard/EmployeeHome/WorkSheet";
+
 
 
 const Router = createBrowserRouter([
@@ -36,8 +41,20 @@ const Router = createBrowserRouter([
         element: <PrivateRoute><DashBoard></DashBoard></PrivateRoute>,
         children: ([
             {
-                path: 'contact',
-                element: <ContactUs></ContactUs>
+                path: '',
+                element: <HrHome></HrHome>
+            },
+            {
+                path: 'employee-list',
+                element: <EmployeeList></EmployeeList>
+            },
+            {
+                path: 'user-detail/:id', // Define a route parameter ':id'
+                element: <UserDetail></UserDetail>
+            },
+            {
+                path: 'workSheet',
+                element: <WorkSheet></WorkSheet>
             }
         ])
     }

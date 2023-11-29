@@ -1,4 +1,4 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import {
     Box,
     Drawer,
@@ -11,10 +11,13 @@ import {
     ListItemIcon,
     ListItemText,
     Divider,
+    Grid,
 } from '@mui/material';
 import { FaBars, FaCalendar, FaEnvelope, FaHome, FaUsers } from 'react-icons/fa';
 import Navbar from '../Components/shared/Navbar/Navbar';
 import { NavLink, Outlet } from 'react-router-dom';
+import useAdmin from '../Hooks/useAdmin';
+import useHr from '../Hooks/useHr';
 
 const DashBoard = () => {
     const theme = useTheme();
@@ -26,11 +29,12 @@ const DashBoard = () => {
         setOpenDrawer(!openDrawer);
     };
 
-    const isAdmin = true;
+    const [isAdmin] = useAdmin();
+    const [isHr] = useHr();
 
     const drawerContent = (
         <List>
-            <Navbar></Navbar>
+
             {isAdmin ? (
                 <>
                     <ListItem component={NavLink} to="/dashboard/adminHome" onClick={handleDrawerToggle}>
@@ -52,22 +56,35 @@ const DashBoard = () => {
                         <ListItemText primary="Contact" />
                     </ListItem>
                 </>
-            ) : (
-                <>
-                    <ListItem component={NavLink} to="/dashboard/userHome" onClick={handleDrawerToggle}>
-                        <ListItemIcon>
-                            <FaHome />
-                        </ListItemIcon>
-                        <ListItemText primary="User Home" />
-                    </ListItem>
-                    <ListItem component={NavLink} to="/dashboard/history" onClick={handleDrawerToggle}>
-                        <ListItemIcon>
-                            <FaCalendar />
-                        </ListItemIcon>
-                        <ListItemText primary="Not History" />
-                    </ListItem>
-                </>
-            )}
+            ) : isHr ?
+
+                (
+                    <>
+                        <ListItem component={NavLink} to="/dashboard" onClick={handleDrawerToggle}>
+                            <ListItemIcon>
+                                <FaHome />
+                            </ListItemIcon>
+                            <ListItemText primary="HR Home" />
+                        </ListItem>
+                        <ListItem component={NavLink} to="/dashboard/employee-list" onClick={handleDrawerToggle}>
+                            <ListItemIcon>
+                                <FaHome />
+                            </ListItemIcon>
+                            <ListItemText primary="Employee List" />
+                        </ListItem>
+                    </>
+                )
+
+                : (
+                    <>
+                        <ListItem component={NavLink} to="/dashboard/workSheet" onClick={handleDrawerToggle}>
+                            <ListItemIcon>
+                                <FaHome />
+                            </ListItemIcon>
+                            <ListItemText primary="Work Sheet" />
+                        </ListItem>
+                    </>
+                )}
 
             <Divider />
             {/* Shared nav link */}
@@ -89,42 +106,47 @@ const DashBoard = () => {
 
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', lg: 'row' } }}>
-            {isMobile && (
-                <IconButton
-                    color="inherit"
-                    aria-label="open drawer"
-                    edge="start"
-                    onClick={handleDrawerToggle}
-                    sx={{ mr: 2, display: { lg: 'none' } }}
+        <Grid>
+            {/* <Navbar></Navbar> */}
+            <Box sx={{ display: 'flex', flexDirection: { xs: 'column', lg: 'row' } }}>
+
+                {isMobile && (
+                    <IconButton
+                        color="inherit"
+                        aria-label="open drawer"
+                        edge="start"
+                        onClick={handleDrawerToggle}
+                        sx={{ mr: 2, display: { lg: 'none' } }}
+                    >
+                        <FaBars />
+                    </IconButton>
+                )}
+
+                <Drawer
+                    variant={isMobile ? 'temporary' : 'permanent'}
+                    open={isMobile ? openDrawer : true}
+                    onClose={handleDrawerToggle}
+                    sx={{
+                        width: '240px',
+                        flexShrink: 0,
+                        '& .MuiDrawer-paper': { width: '240px', boxSizing: 'border-box' },
+                        ...(isMobile && {
+                            '& .MuiDrawer-paper': { width: '100%' },
+                        }),
+                    }}
                 >
-                    <FaBars />
-                </IconButton>
-            )}
+                    <Typography variant="h6" component="div" sx={{ p: 2, fontWeight: 'bold' }}>
+                        Dashboard
+                    </Typography>
+                    {drawerContent}
+                </Drawer>
 
-            <Drawer
-                variant={isMobile ? 'temporary' : 'permanent'}
-                open={isMobile ? openDrawer : true}
-                onClose={handleDrawerToggle}
-                sx={{
-                    width: '240px',
-                    flexShrink: 0,
-                    '& .MuiDrawer-paper': { width: '240px', boxSizing: 'border-box' },
-                    ...(isMobile && {
-                        '& .MuiDrawer-paper': { width: '100%' },
-                    }),
-                }}
-            >
-                <Typography variant="h6" component="div" sx={{ p: 2, fontWeight: 'bold' }}>
-                    Dashboard
-                </Typography>
-                {drawerContent}
-            </Drawer>
-
-            <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-                <Outlet />
+                <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+                    <Outlet />
+                </Box>
             </Box>
-        </Box>
+        </Grid>
+
     );
 };
 

@@ -83,7 +83,8 @@ const Register = () => {
                 designation: data.designation,
                 role: data.role,
                 salary: parseFloat(data.salary),
-                image: res.data.data.display_url
+                image: res.data.data.display_url,
+                verified: false
             }
 
             // create user
