@@ -11,8 +11,25 @@ const TableDetail = ({ employee, i }) => {
     const [isVerified, setIsVerified] = useState(verified);
     const [openModal, setOpenModal] = useState(false);
     const [month, setMonth] = useState('');
-    const [year, setYear] = useState('');
+    // const [year, setYear] = useState('');
 
+    const isFutureMonth = (selectedMonth) => {
+        const currentMonth = new Date().toISOString().split('-').slice(0, 2).join('-');
+        return selectedMonth > currentMonth;
+    };
+
+    const handleMonthChange = (e) => {
+        const selectedMonth = e.target.value;
+
+        if (isFutureMonth(selectedMonth)) {
+            // Prevent setting the state for future months
+            console.log('Please select a valid month.');
+            return;
+        }
+
+        // Set the state if the selected month is not in the future
+        setMonth(selectedMonth);
+    };
 
     const handleVerify = async () => {
         try {
@@ -40,50 +57,53 @@ const TableDetail = ({ employee, i }) => {
         setOpenModal(false);
     };
 
+    // const handleModalSubmit = async () => {
+    //     try {
+    //         // Check if a payment already exists for the specified employee, month, and year
+    //         const checkExistingPayment = await axiosSecure.get(`/payments?employeeId=${_id}&month=${month}&year=${year}`);
 
-    const handleModalSubmit = async () => {
-        try {
+    //         console.log(checkExistingPayment);
 
-            const checkExistingPayment = await axiosSecure.get(`/payments?employeeId=${_id}&month=${month}&year=${year}`);
+    //         if (checkExistingPayment.data.error) {
+    //             // If a payment already exists, show an error message
 
-            console.log(checkExistingPayment);
+    //             Swal.fire({
+    //                 icon: 'error',
+    //                 title: 'Error!',
+    //                 text: 'Payment already exists for this employee, month, and year.',
+    //             });
+    //         } else {
+    //             // If no payment exists, proceed to make a new payment
 
-            if (checkExistingPayment.data.error) {
+    //             // Gather data to be sent to the server
+    //             const dataToSend = {
+    //                 employeeId: _id,
+    //                 month,
+    //                 year,
+    //                 salary,
+    //             };
 
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error!',
-                    text: 'Payment already exists for this employee, month, and year.',
-                });
-            } else {
+    //             // Make an API request to save the data
+    //             const response = await axiosSecure.post('/payments', dataToSend);
 
-                const dataToSend = {
-                    employeeId: _id,
-                    month,
-                    year,
-                    salary,
-                };
+    //             // Handle the response as needed (e.g., show success message)
+    //             console.log('Data saved successfully:', response.data);
+    //             if (response.data.paymentResult.acknowledged) {
+    //                 Swal.fire({
+    //                     icon: 'success',
+    //                     title: 'Success!',
+    //                     text: 'Data saved successfully',
+    //                 });
+    //             }
 
-
-                const response = await axiosSecure.post('/payments', dataToSend);
-
-
-                console.log('Data saved successfully:', response.data);
-                if (response.data.paymentResult.acknowledged) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success!',
-                        text: 'Data saved successfully',
-                    });
-                }
-
-
-                handleModalClose();
-            }
-        } catch (error) {
-            console.error('Error saving data:', error.message);
-        }
-    };
+    //             // Close the modal
+    //             handleModalClose();
+    //         }
+    //     } catch (error) {
+    //         // Handle errors (e.g., show error message)
+    //         console.error('Error saving data:', error.message);
+    //     }
+    // };
 
 
 
@@ -138,7 +158,7 @@ const TableDetail = ({ employee, i }) => {
                         Salary: {salary}
                     </Typography>
 
-                    <Paper elevation={0} sx={{ mt: 2, mb: 2, p: 2 }}>
+                    {/* <Paper elevation={0} sx={{ mt: 2, mb: 2, p: 2 }}>
                         <Stack spacing={2}>
                             <TextField
                                 label="Month"
@@ -155,11 +175,29 @@ const TableDetail = ({ employee, i }) => {
                                 onChange={(e) => setYear(e.target.value)}
                             />
                         </Stack>
+                    </Paper> */}
+
+
+                    <Paper elevation={0} sx={{ mt: 2, mb: 2, p: 2 }}>
+                        <Stack spacing={2}>
+                            {/* Month Picker */}
+                            <TextField
+                                label="Month"
+                                type="month"
+                                value={month}
+                                onChange={handleMonthChange}
+                                // onChange={(e) => setMonth(e.target.value)}
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                            />
+
+                        </Stack>
                     </Paper>
-                    <Button onClick={handleModalSubmit} variant="contained" color="primary">
+                    {/* <Button onClick={handleModalSubmit} variant="contained" color="primary">
                         Submit
-                    </Button>
-                    {/* <Payment employeeId={_id} month={month} year={year} onClose={handleModalClose} /> */}
+                    </Button> */}
+                    <Payment employeeId={_id} month={month} onClose={handleModalClose} />
                 </Box>
             </Modal>
         </TableRow>
