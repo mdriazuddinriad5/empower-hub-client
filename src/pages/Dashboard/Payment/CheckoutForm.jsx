@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useAuth from "../../../Hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
+import Swal from "sweetalert2";
+import moment from "moment/moment";
 
 
 const CheckoutForm = ({ employeeId, month, onClose }) => {
@@ -14,8 +16,14 @@ const CheckoutForm = ({ employeeId, month, onClose }) => {
     const elements = useElements();
     const axiosSecure = useAxiosSecure();
     const { user } = useAuth();
+    // const [amount, setAmount]= useState();
 
     // const amount = 5;
+
+    const dateString = month;
+    const milliseconds = moment(dateString, 'YYYY-MM').valueOf();
+
+    console.log(milliseconds);
 
 
     const { data: details = {} } = useQuery({
@@ -26,17 +34,22 @@ const CheckoutForm = ({ employeeId, month, onClose }) => {
         }
     })
 
-    const amount = details?.salary;
+    const { email, salary, name } = details;
+    console.log(salary);
+    console.log(email);
 
 
 
     useEffect(() => {
-        axiosSecure.post('/create-payment-intent', { salary: amount })
-            .then(res => {
-                console.log(res.data);
-                setClientSecret(res.data.clientSecret);
-            })
-    }, [axiosSecure, amount])
+        if (salary > 0) {
+            axiosSecure.post('/create-payment-intent', { salary: salary })
+                .then(res => {
+                    console.log(res.data);
+                    setClientSecret(res.data.clientSecret);
+                })
+        }
+
+    }, [axiosSecure, salary])
 
     console.log(clientSecret);
 
@@ -89,25 +102,47 @@ const CheckoutForm = ({ employeeId, month, onClose }) => {
                 setTransactionId(paymentIntent.id);
 
                 const payment = {
-                    email: user.email,
-                    price: amount,
+                    email: email,
+                    salary: salary,
                     transactionId: paymentIntent.id,
-                    date: new Date(),  //utc date convert, use moment js to convert
-                    status: 'pending'
+                    date: milliseconds.toString(),  //utc date convert, use moment js to convert
+                    employeeId: employeeId
                 }
-                const res = await axiosSecure.post('/payments', payment);
-                console.log("Payment saved", res.data);
-                // if (res.data.paymentResult.insertedId) {
-                //     Swal.fire({
-                //         position: "top-end",
-                //         icon: "success",
-                //         title: `${totalPrice} dollar paid successfully`,
-                //         showConfirmButton: false,
-                //         timer: 1500
-                //     });
-                //     navigate('/dashboard/paymentHistory')
-                // }
-                // refetch();
+
+                const response = await axiosSecure.get(`/payments?employeeId=${employeeId}&date=${milliseconds}`)
+                const obj = response.data;
+                const objLength = Object.keys(obj).length;
+                console.log(objLength);
+                console.log(month);
+
+                if (objLength > 0 || response.data.error === "ERR_BAD_REQUEST") {
+                    onClose();
+                    Swal.fire({
+                        title: 'Error!',
+                        text: `${name} has already been paid for this month`,
+                        icon: 'error',
+                        confirmButtonText: 'Cool'
+                    })
+                    return;
+                } else {
+                    const res = await axiosSecure.post('/payments', payment);
+                    console.log("Payment saved", res.data);
+                    if (res.data.paymentResult.insertedId) {
+                        onClose();
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            title: `${salary} dollar paid successfully`,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        // navigate('/dashboard/paymentHistory')
+                    }
+                    // refetch();
+
+                }
+
+
 
             }
         }
