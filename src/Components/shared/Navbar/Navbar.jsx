@@ -17,13 +17,11 @@ import Button from '@mui/material/Button';
 import { Avatar, Container, useTheme } from '@mui/material';
 import { Link as RouterLink, NavLink, Link } from 'react-router-dom';
 import useAuth from '../../../Hooks/useAuth';
+import useAdmin from '../../../Hooks/useAdmin';
+import useHr from '../../../Hooks/useHr';
 
 const drawerWidth = 240;
-const links = [
-    { name: 'Home', link: '/' },
-    { name: 'Dashboard', link: '/dashboard' },
-    { name: 'Contact us', link: '/contact' },
-]
+
 
 
 function Navbar(props) {
@@ -32,6 +30,15 @@ function Navbar(props) {
     const handleLogOut = () => {
         logOut().then().catch()
     }
+    const [isAdmin]= useAdmin();
+    const [isHr]= useHr();
+
+
+    const links = [
+        { name: 'Home', link: '/' },
+        { name: 'Dashboard', link: `${isHr && user ? '/dashboard/employee-list' : (user && (!isHr && !isAdmin))? '/dashboard/payment-history' : '/dashboard/adminHome' } ` },
+        { name: 'Contact us', link: '/contact' },
+    ]
 
     const { window } = props;
     const theme = useTheme();

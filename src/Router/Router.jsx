@@ -7,12 +7,12 @@ import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import PrivateRoute from "./PrivateRoute";
 import EmployeeList from "../pages/Dashboard/EmployeeList/EmployeeList";
-import HrHome from "../pages/Dashboard/HrHome/HrHome";
 import UserDetail from "../pages/Dashboard/EmployeeList/UserDetail";
 import WorkSheet from "../pages/Dashboard/EmployeeHome/WorkSheet";
 import PaymentHistory from "../pages/Dashboard/EmployeeHome/PaymentHistory";
-import EmployeeHome from "../pages/Dashboard/EmployeeHome/EmployeeHome";
 import Payment from "../pages/Dashboard/Payment/Payment";
+import AdminHome from "../pages/Dashboard/AdminHome/AdminHome";
+import Progress from "../pages/Dashboard/EmployeeList/Progress";
 
 
 
@@ -43,14 +43,18 @@ const Router = createBrowserRouter([
         path: 'dashboard',
         element: <PrivateRoute><DashBoard></DashBoard></PrivateRoute>,
         children: ([
+
+            // employee section
             {
-                path: '',
-                element: <EmployeeHome></EmployeeHome>
+                path: 'payment-history',
+                element: <PaymentHistory></PaymentHistory>
             },
             {
-                path: '',
-                element: <HrHome></HrHome>
+                path: 'workSheet',
+                element: <WorkSheet></WorkSheet>
             },
+
+            // hr section
             {
                 path: 'employee-list',
                 element: <EmployeeList></EmployeeList>
@@ -60,16 +64,18 @@ const Router = createBrowserRouter([
                 element: <UserDetail></UserDetail>
             },
             {
-                path: 'workSheet',
-                element: <WorkSheet></WorkSheet>
-            },
-            {
-                path: 'payment-history',
-                element: <PaymentHistory></PaymentHistory>
-            },
-            {
                 path: 'payment',
                 element: <Payment></Payment>
+            },
+            {
+                path: 'progress',
+                element: <Progress></Progress>
+            },
+
+            // admin section
+            {
+                path: 'adminHome',
+                element: <AdminHome></AdminHome>
             }
         ])
     }

@@ -60,34 +60,35 @@ const DashBoard = () => {
 
                 (
                     <>
-                        <ListItem component={NavLink} to="/dashboard" onClick={handleDrawerToggle}>
-                            <ListItemIcon>
-                                <FaHome />
-                            </ListItemIcon>
-                            <ListItemText primary="HR Home" />
-                        </ListItem>
                         <ListItem component={NavLink} to="/dashboard/employee-list" onClick={handleDrawerToggle}>
                             <ListItemIcon>
                                 <FaHome />
                             </ListItemIcon>
                             <ListItemText primary="Employee List" />
                         </ListItem>
+                        <ListItem component={NavLink} to="/dashboard/progress" onClick={handleDrawerToggle}>
+                            <ListItemIcon>
+                                <FaHome />
+                            </ListItemIcon>
+                            <ListItemText primary="Progress" />
+                        </ListItem>
                     </>
                 )
 
                 : (
                     <>
-                        <ListItem component={NavLink} to="/dashboard/workSheet" onClick={handleDrawerToggle}>
-                            <ListItemIcon>
-                                <FaHome />
-                            </ListItemIcon>
-                            <ListItemText primary="Work Sheet" />
-                        </ListItem>
+
                         <ListItem component={NavLink} to="/dashboard/payment-history" onClick={handleDrawerToggle}>
                             <ListItemIcon>
                                 <FaHome />
                             </ListItemIcon>
                             <ListItemText primary="Payment History" />
+                        </ListItem>
+                        <ListItem component={NavLink} to="/dashboard/workSheet" onClick={handleDrawerToggle}>
+                            <ListItemIcon>
+                                <FaHome />
+                            </ListItemIcon>
+                            <ListItemText primary="Work Sheet" />
                         </ListItem>
                     </>
                 )}

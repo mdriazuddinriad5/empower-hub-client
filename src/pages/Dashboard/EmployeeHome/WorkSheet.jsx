@@ -2,10 +2,16 @@ import { useEffect, useState } from 'react';
 import {
     Button,
     FormControl,
+    Grid,
     InputLabel,
     MenuItem,
+    Paper,
     Select,
+    Table,
+    TableBody,
     TableCell,
+    TableContainer,
+    TableHead,
     TableRow,
     TextField,
 } from '@mui/material';
@@ -22,6 +28,7 @@ const WorkSheet = () => {
     const axiosSecure = useAxiosSecure();
     const { user } = useAuth();
 
+    console.log(user);
     const calculateAmount = (task, hours) => {
         const hourlyRates = {
             Sales: 20,
@@ -75,7 +82,7 @@ const WorkSheet = () => {
         setDate('');
 
         try {
-            const response = await axiosSecure.post('/submit-work-entry', { task, hoursWorked: hours, date, email: user?.email });
+            const response = await axiosSecure.post('/submit-work-entry', { task, hoursWorked: hours, date, email: user?.email, name: user?.displayName });
 
             if (response.status === 200) {
                 console.log('Work entry submitted successfully');
@@ -157,28 +164,38 @@ const WorkSheet = () => {
                 </Button>
             </form>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Task</th>
-                        <th>Hours Worked</th>
-                        <th>Date</th>
-                        <th>Amount</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {sortedWorkEntries.map((entry, index) => (
-                        <TableRow key={index}>
-                            <TableCell>{entry.task}</TableCell>
-                            <TableCell>{entry.hoursWorked}</TableCell>
-                            <TableCell>{entry.date}</TableCell>
-                            <TableCell>{entry.amount}</TableCell>
-                        </TableRow>
-                    ))}
-                </tbody>
-            </table>
 
-            <div>Total Amount: {calculateTotalAmount()}</div>
+            <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 325 }} aria-label="simple table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell component="th" scope="row">#</TableCell>
+                            <TableCell align="right">Task</TableCell>
+                            <TableCell align="right">Hours Worked</TableCell>
+                            <TableCell align="right">Date</TableCell>
+                            <TableCell align="right">Amount</TableCell>
+                        </TableRow>
+                    </TableHead>
+
+                    <TableBody>
+                        {sortedWorkEntries.map((entry, index) => (
+                            <TableRow key={index}>
+                                <TableCell component="th" scope="row">{index + 1}</TableCell>
+                                <TableCell align="right">{entry.task}</TableCell>
+                                <TableCell align="right">{entry.hoursWorked}</TableCell>
+                                <TableCell align="right">{entry.date}</TableCell>
+                                <TableCell align="right">{entry.amount}</TableCell>
+                            </TableRow>
+                        ))}
+
+
+                    </TableBody>
+                </Table>
+                <Grid sx={{ display: 'flex', justifyContent: 'right' }} p={2} >Total Amount: {calculateTotalAmount()}</Grid>
+
+            </TableContainer>
+
+
         </div>
     );
 };

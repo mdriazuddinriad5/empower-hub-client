@@ -11,10 +11,9 @@ const Payment = ({ employeeId, month, onClose }) => {
     console.log(stripePromise);
     return (
         <Grid>
-            <SectionTitle heading={"Payment"} subHeading={"Please pay to eat"}></SectionTitle>
+            <SectionTitle heading={"Monthly Salary"} subHeading={"Pay through Card"}></SectionTitle>
             <Grid>
                 <Elements stripe={stripePromise}>
-                    {/* <CheckoutForm employeeId={employeeId} month={month} year={year}></CheckoutForm> */}
                     <CheckoutForm employeeId={employeeId} month={month} onClose={onClose}></CheckoutForm>
                 </Elements>
             </Grid>
