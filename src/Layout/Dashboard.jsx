@@ -37,24 +37,13 @@ const DashBoard = () => {
 
             {isAdmin ? (
                 <>
-                    <ListItem component={NavLink} to="/dashboard/adminHome" onClick={handleDrawerToggle}>
+                    <ListItem component={NavLink} to="/dashboard/allEmployees" onClick={handleDrawerToggle}>
                         <ListItemIcon>
                             <FaHome />
                         </ListItemIcon>
-                        <ListItemText primary="Admin Home" />
+                        <ListItemText primary="All Employees" />
                     </ListItem>
-                    <ListItem component={NavLink} to="/dashboard/users" onClick={handleDrawerToggle}>
-                        <ListItemIcon>
-                            <FaUsers />
-                        </ListItemIcon>
-                        <ListItemText primary="All Users" />
-                    </ListItem>
-                    <ListItem component={NavLink} to="/dashboard/contact" onClick={handleDrawerToggle}>
-                        <ListItemIcon>
-                            <FaEnvelope />
-                        </ListItemIcon>
-                        <ListItemText primary="Contact" />
-                    </ListItem>
+
                 </>
             ) : isHr ?
 

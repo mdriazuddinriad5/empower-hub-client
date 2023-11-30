@@ -30,13 +30,13 @@ function Navbar(props) {
     const handleLogOut = () => {
         logOut().then().catch()
     }
-    const [isAdmin]= useAdmin();
-    const [isHr]= useHr();
+    const [isAdmin] = useAdmin();
+    const [isHr] = useHr();
 
 
     const links = [
         { name: 'Home', link: '/' },
-        { name: 'Dashboard', link: `${isHr && user ? '/dashboard/employee-list' : (user && (!isHr && !isAdmin))? '/dashboard/payment-history' : '/dashboard/adminHome' } ` },
+        { name: 'Dashboard', link: `${isAdmin && user ? '/dashboard/allEmployees' : (isHr && user) ? '/dashboard/employee-list' : '/dashboard/payment-history'} ` },
         { name: 'Contact us', link: '/contact' },
     ]
 
@@ -123,7 +123,7 @@ function Navbar(props) {
                         <Box sx={{ display: 'flex', alignItems: 'center' }}>
                             {user ? (
                                 <>
-                                    <Typography variant="body1" color="textPrimary" fontWeight="bold" sx={{mr:2}}>
+                                    <Typography variant="body1" color="textPrimary" fontWeight="bold" sx={{ mr: 2 }}>
                                         {user.displayName}
                                     </Typography>
                                     <Avatar alt="User Avatar" src={user.photoURL} sx={{ width: 32, height: 32, marginRight: 2 }} />

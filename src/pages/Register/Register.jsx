@@ -84,7 +84,7 @@ const Register = () => {
                 role: data.role,
                 salary: parseFloat(data.salary),
                 image: res.data.data.display_url,
-                verified: false
+                verified: data.role === 'hr' ? true : false
             }
 
             // create user

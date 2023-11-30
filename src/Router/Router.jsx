@@ -11,8 +11,8 @@ import UserDetail from "../pages/Dashboard/EmployeeList/UserDetail";
 import WorkSheet from "../pages/Dashboard/EmployeeHome/WorkSheet";
 import PaymentHistory from "../pages/Dashboard/EmployeeHome/PaymentHistory";
 import Payment from "../pages/Dashboard/Payment/Payment";
-import AdminHome from "../pages/Dashboard/AdminHome/AdminHome";
 import Progress from "../pages/Dashboard/EmployeeList/Progress";
+import AllEmployeeList from "../pages/Dashboard/AdminHome/AllEmployeeList";
 
 
 
@@ -74,8 +74,8 @@ const Router = createBrowserRouter([
 
             // admin section
             {
-                path: 'adminHome',
-                element: <AdminHome></AdminHome>
+                path: 'allEmployees',
+                element: <AllEmployeeList></AllEmployeeList>
             }
         ])
     }
