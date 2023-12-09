@@ -1,4 +1,4 @@
-# 1. Empowerhub - Employee Management Website
+# Empowerhub - Employee Management Website
 
 - **Live Site Link:** [Empowerhub Live Site](https://empower-hub-be953.web.app)
 
