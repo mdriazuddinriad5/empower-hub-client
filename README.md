@@ -6,10 +6,6 @@
   - Email: pepsi@coke.com
   - Password: Amar1234!@
 
-- **Client Side GitHub Repository:** [Empowerhub Client Repo](https://github.com/mdriazuddinriad5/empower-hub-client)
-
-- **Server Side GitHub Repository:** [Empowerhub Server Repo](https://github.com/mdriazuddinriad5/empower-hub-server)
-
 - **Key Features:**
   - Implementation of JWT token for secure user authentication.
   - Intuitive dashboard for easy navigation and data visualization.
@@ -19,7 +15,6 @@
   - Designed with responsiveness in mind, ensuring optimal user experience across devices.
   - Implements Firebase for secure and efficient user authentication.
   - Employs MongoDB as the database solution for flexible and scalable data storage.
-
 
 
 - **Usage Technologies:**
